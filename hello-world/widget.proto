@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "pb";
+
+package service;
+
+message Widget {
+    string id = 1;
+    string user_id = 2;
+    string msg = 3;
+    string created_at = 4;
+}
+
+message WidgetList {
+    repeated Widget items = 1;
+    string next_cursor = 2;
+}
+
+message Cursor {
+    string next_cursor = 1;
+}
+
+message AddRequest {
+    string user_id = 1;
+    string msg = 2;
+}
+
+service WidgetService {
+    rpc List(Cursor) returns (WidgetList);
+    rpc Add(AddRequest) returns (Widget);
+}

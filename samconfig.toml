@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sam-app"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-lkitb51qpe5f"
+s3_prefix = "sam-app"
+region = "ap-northeast-1"
+profile = "me"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "SsmPath=\"/dev/aws-sam-grpc-sample\""
