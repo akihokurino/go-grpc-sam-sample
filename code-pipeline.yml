@@ -17,11 +17,19 @@ Parameters:
   GitHubRepoName:
     Description: github repository name
     Type: String
-  ArtifactBucketName:
-    Description: pipeline artifact destination s3 bucket name
-    Type: String
 
 Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${ProjectName}-artifact
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+
   BuildExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -50,8 +58,8 @@ Resources:
                   - "logs:CreateLogStream"
                   - "logs:PutLogEvents"
                 Resource:
-                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${EnvName}-doc-account-server
-                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${EnvName}-doc-account-server:*
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ProjectName}
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${ProjectName}:*
                 Effect: Allow
 
   BuildProject:
@@ -131,7 +139,7 @@ Resources:
     Properties:
       ArtifactStore:
         Type: S3
-        Location: !Ref ArtifactBucketName
+        Location: !Sub ${ProjectName}-artifact
       Name: !Ref ProjectName
       RestartExecutionOnUpdate: false
       RoleArn: !GetAtt PipelineExecutionRole.Arn

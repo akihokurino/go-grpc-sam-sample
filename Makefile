@@ -42,7 +42,7 @@ run-local-batch:
 	go run entrypoint/batch/main.go command-name-local
 
 deploy: build
-	sam deploy
+	sam deploy --profile me
 
 debug:
 	./node_modules/.bin/ts-node client/debug.ts
