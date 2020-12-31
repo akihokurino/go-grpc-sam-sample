@@ -35,6 +35,12 @@ run-local-grpc: gen-proto
 run-local-grpcui:
 	grpcui -plaintext -port 4000 localhost:3000
 
+run-local-batch:
+	LOCAL=true \
+	SSM_PATH=/dev/aws-sam-grpc-sample/dotenv \
+	AWS_PROFILE=me \
+	go run entrypoint/batch/main.go command-name-local
+
 deploy: build
 	sam deploy
 

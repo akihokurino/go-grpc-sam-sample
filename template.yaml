@@ -14,10 +14,10 @@ Globals:
     Timeout: 5
 
 Resources:
-  GRPCFunction:
+  ApiFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: entrypoint/grpc
+      CodeUri: entrypoint/api
       Handler: api
       Runtime: go1.x
       Tracing: Active
@@ -39,6 +39,32 @@ Resources:
           SSM_PATH: !Ref SsmPath
       Policies:
         - AmazonDynamoDBFullAccess
+        - AmazonCognitoPowerUser
+        - AmazonSSMReadOnlyAccess
+
+  BatchFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: entrypoint/batch
+      Handler: batch
+      Runtime: go1.x
+      Tracing: Active
+      Events:
+        RunBatch:
+          Type: Schedule
+          Properties:
+            Description: ""
+            Enabled: !If [ShouldPreventRunBatch, false, true]
+            Input: '{"args":["command-name-lambda"]}'
+            Schedule: "cron(0/5 * * * ? *)"
+      EventInvokeConfig:
+        MaximumRetryAttempts: 0
+      Environment:
+        Variables:
+          SSM_PATH: !Ref SsmPath
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AmazonCognitoPowerUser
         - AmazonSSMReadOnlyAccess
 
   ApiGateway:
