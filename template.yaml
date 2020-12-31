@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   aws-sam-grpc-sample
@@ -6,7 +6,7 @@ Description: >
 Parameters:
   SsmPath:
     Type: String
-    Default: /dev/aws-sam-grpc-sample
+    Default: /dev/aws-sam-grpc-sample/dotenv
     Description: ssm prameter key path for dotenv body
 
 Globals:
@@ -14,11 +14,11 @@ Globals:
     Timeout: 5
 
 Resources:
-  ApiFunction:
+  GRPCFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: hello-world/
-      Handler: hello-world
+      CodeUri: entrypoint/grpc
+      Handler: api
       Runtime: go1.x
       Tracing: Active
       Events:

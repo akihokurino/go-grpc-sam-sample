@@ -1,8 +1,7 @@
-PROTO_PATH := hello-world
-PROTO_GO_DIST := hello-world/rpc
+PROTO_PATH := proto
+PROTO_GO_DIST := proto/go
 PROTOC_GEN_TS_PATH := ./node_modules/.bin/protoc-gen-ts
 PROTO_TS_DIST := client/rpc
-
 
 .PHONY: build
 
@@ -26,6 +25,15 @@ gen-client-proto:
 
 build:
 	sam build
+
+run-local-grpc: gen-proto
+	LOCAL=true \
+	SSM_PATH=/dev/aws-sam-grpc-sample/dotenv \
+	AWS_PROFILE=me \
+	go run entrypoint/grpc/main.go
+
+run-local-grpcui:
+	grpcui -plaintext -port 4000 localhost:3000
 
 deploy: build
 	sam deploy

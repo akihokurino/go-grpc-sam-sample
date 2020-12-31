@@ -1,31 +1,21 @@
 // package: service
-// file: widget.proto
+// file: hello.proto
 
-import * as widget_pb from "./widget_pb";
+import * as hello_pb from "./hello_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
-type WidgetServiceList = {
+type HelloWorld = {
   readonly methodName: string;
-  readonly service: typeof WidgetService;
+  readonly service: typeof Hello;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof widget_pb.Cursor;
-  readonly responseType: typeof widget_pb.WidgetList;
+  readonly requestType: typeof hello_pb.Empty;
+  readonly responseType: typeof hello_pb.HelloWorld;
 };
 
-type WidgetServiceAdd = {
-  readonly methodName: string;
-  readonly service: typeof WidgetService;
-  readonly requestStream: false;
-  readonly responseStream: false;
-  readonly requestType: typeof widget_pb.AddRequest;
-  readonly responseType: typeof widget_pb.Widget;
-};
-
-export class WidgetService {
+export class Hello {
   static readonly serviceName: string;
-  static readonly List: WidgetServiceList;
-  static readonly Add: WidgetServiceAdd;
+  static readonly World: HelloWorld;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -56,27 +46,18 @@ interface BidirectionalStream<ReqT, ResT> {
   on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
 }
 
-export class WidgetServiceClient {
+export class HelloClient {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
-  list(
-    requestMessage: widget_pb.Cursor,
+  world(
+    requestMessage: hello_pb.Empty,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: widget_pb.WidgetList|null) => void
+    callback: (error: ServiceError|null, responseMessage: hello_pb.HelloWorld|null) => void
   ): UnaryResponse;
-  list(
-    requestMessage: widget_pb.Cursor,
-    callback: (error: ServiceError|null, responseMessage: widget_pb.WidgetList|null) => void
-  ): UnaryResponse;
-  add(
-    requestMessage: widget_pb.AddRequest,
-    metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: widget_pb.Widget|null) => void
-  ): UnaryResponse;
-  add(
-    requestMessage: widget_pb.AddRequest,
-    callback: (error: ServiceError|null, responseMessage: widget_pb.Widget|null) => void
+  world(
+    requestMessage: hello_pb.Empty,
+    callback: (error: ServiceError|null, responseMessage: hello_pb.HelloWorld|null) => void
   ): UnaryResponse;
 }
 

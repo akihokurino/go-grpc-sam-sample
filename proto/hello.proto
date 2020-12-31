@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "pb";
+
+package service;
+
+message Empty {
+    
+}
+
+message HelloWorld {
+    string msg = 1;
+}
+
+service Hello {
+    rpc World(Empty) returns (HelloWorld);
+}
