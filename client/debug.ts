@@ -5,7 +5,7 @@ import {NodeHttpTransport} from "@improbable-eng/grpc-web-node-http-transport/li
 import Code = grpc.Code;
 
 
-const baseURL = "https://6pbzbpxgk5.execute-api.ap-northeast-1.amazonaws.com/default";
+const baseURL = "https://hgsd1pl96e.execute-api.ap-northeast-1.amazonaws.com/default";
 
 const hello = () => {
   const req = new Empty();
