@@ -32,7 +32,7 @@ func main() {
 
 	run := func(ctx context.Context, params *params) {
 		rawTaskName := params.Args[0]
-		fmt.Printf("hello, %s, %s", os.Getenv("MESSAGE"), rawTaskName)
+		fmt.Printf("hello cicd, %s, %s", os.Getenv("MESSAGE"), rawTaskName)
 	}
 
 	isLocal, _ := strconv.ParseBool(os.Getenv("LOCAL"))

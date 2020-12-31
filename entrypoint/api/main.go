@@ -107,7 +107,7 @@ type hello struct {
 }
 
 func (s *hello) World(ctx context.Context, req *pb.Empty) (*pb.HelloWorld, error) {
-	msg := fmt.Sprintf("hello, %s", os.Getenv("MESSAGE"))
+	msg := fmt.Sprintf("hello cicd, %s", os.Getenv("MESSAGE"))
 
 	return &pb.HelloWorld{
 		Msg: msg,
