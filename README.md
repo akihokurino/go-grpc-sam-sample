@@ -5,5 +5,8 @@
 - grpc-web
 https://github.com/improbable-eng/grpc-web
 - algnhsa
+- aws 
 - aws lambda
 - aws api gateway
+- aws cloud formation
+- aws code pipeline
