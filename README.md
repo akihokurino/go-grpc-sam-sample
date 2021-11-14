@@ -1,12 +1,8 @@
-# aws-sam-grpc-sample
-
-## 構成
+## Specs
 - go 1.14
-- grpc-web
-https://github.com/improbable-eng/grpc-web
-- algnhsa
-- aws 
-- aws lambda
-- aws api gateway
-- aws cloud formation
-- aws code pipeline
+- grpc-web（ https://github.com/improbable-eng/grpc-web ）
+- algnhsa（ https://github.com/akrylysov/algnhsa ）
+- lambda
+- api gateway
+- cloud formation
+- code pipeline
